@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     login = getApplicationContext().getSharedPreferences(SHARED_PREFS_KEY, MODE_PRIVATE);
     if (login.contains("username")) {
       Intent loginIntent = new Intent(this, BreedActivity.class);
-      loginIntent.putExtra("username", login.getString("username", null));
+      loginIntent.putExtra("prefs_key", SHARED_PREFS_KEY);
       startActivity(loginIntent);
     }
   }
