@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -19,9 +23,8 @@ import retrofit2.Response;
 
 public class BreedActivity extends AppCompatActivity implements OnClickListener {
 
-  private static final String SHARED_PREFS_KEY = "sharedPrefsLogin";
+  private static final String TAG = "JSON?";
   private TextView welcomeText;
-  private String username;
   private SharedPreferences userPrefs;
   DogCeoAPIService dogCeoAPIService;
   CardView dog1card;
@@ -37,9 +40,10 @@ public class BreedActivity extends AppCompatActivity implements OnClickListener 
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_breed);
-    userPrefs = getSharedPreferences(SHARED_PREFS_KEY, MODE_PRIVATE);
+    userPrefs = getSharedPreferences(getResources().getString(R.string.shared_prefs_key),
+        MODE_PRIVATE);
     welcomeText = findViewById(R.id.welcome_tv);
-
+    Picasso.with(this).setLoggingEnabled(true);
     dogCeoAPIService = ServiceGenerator.createService(DogCeoAPIService.class);
 
     dog1card = findViewById(R.id.dog1_cv);
@@ -85,7 +89,7 @@ public class BreedActivity extends AppCompatActivity implements OnClickListener 
       @Override
       public void onResponse(Call<RandomDogImageResponse> call,
           Response<RandomDogImageResponse> response) {
-        String url = response.message();
+        String url = response.body().getMessage();
         Picasso.with(getApplicationContext()).load(url).into(dog4image);
       }
 
@@ -102,8 +106,10 @@ public class BreedActivity extends AppCompatActivity implements OnClickListener 
       @Override
       public void onResponse(Call<RandomDogImageResponse> call,
           Response<RandomDogImageResponse> response) {
-        String url = response.message();
-        Picasso.with(getApplicationContext()).load(url).into(dog3image);
+        if (response.isSuccessful()) {
+          String url = response.body().getMessage();
+          Picasso.with(getApplicationContext()).load(url).into(dog3image);
+        }
       }
 
       @Override
@@ -119,7 +125,7 @@ public class BreedActivity extends AppCompatActivity implements OnClickListener 
       @Override
       public void onResponse(Call<RandomDogImageResponse> call,
           Response<RandomDogImageResponse> response) {
-        String url = response.message();
+        String url = response.body().getMessage();
         Picasso.with(getApplicationContext()).load(url).into(dog2image);
       }
 
@@ -136,8 +142,10 @@ public class BreedActivity extends AppCompatActivity implements OnClickListener 
       @Override
       public void onResponse(Call<RandomDogImageResponse> call,
           Response<RandomDogImageResponse> response) {
-        String url = response.message();
-        Picasso.with(getApplicationContext()).load(url).resizeDimen(100, 90).into(dog1image);
+        String url = response.body().getMessage();
+        if (response.isSuccessful()) {
+          Picasso.with(getApplicationContext()).load(url).into(dog1image);
+        }
       }
 
       @Override
@@ -169,6 +177,26 @@ public class BreedActivity extends AppCompatActivity implements OnClickListener 
         startActivity(intent);
         break;
     }
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.action_menu, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    if (id == R.id.action_logout) {
+      SharedPreferences.Editor editor = userPrefs.edit();
+      editor.clear();
+      editor.apply();
+      Intent intent = new Intent(this, LoginActivity.class);
+      startActivity(intent);
+    }
+    return super.onOptionsItemSelected(item);
   }
 }
 

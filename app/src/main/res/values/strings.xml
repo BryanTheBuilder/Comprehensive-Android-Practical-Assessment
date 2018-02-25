@@ -1,4 +1,5 @@
 <resources>
+  <string name="shared_prefs_key">sharedPrefsLogin</string>
   <string name="app_name">Dogdata</string>
   <string name="hint_username">username</string>
   <string name="hint_password">password</string>
@@ -13,4 +14,5 @@
   <string name="dog2_url">https://dog.ceo/api/img/bulldog-boston/n02096585_10380.jpg</string>
   <string name="dog3_url">https://dog.ceo/api/img/dingo/n02115641_10021.jpg</string>
   <string name="dog4_url">https://dog.ceo/api/img/germanshepherd/n02106662_10122.jpg</string>
+  <string name="action_logout">Logout</string>
 </resources>
