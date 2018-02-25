@@ -11,6 +11,8 @@
     android:id="@+id/url_photo_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:contentDescription="dog_url_photoview"/>
+    android:adjustViewBounds="true"
+    android:contentDescription="dog_url_photoview"
+    android:scaleType="fitStart"/>
 
 </android.support.constraint.ConstraintLayout>
