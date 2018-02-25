@@ -3,4 +3,14 @@
   <string name="hint_username">username</string>
   <string name="hint_password">password</string>
   <string name="button_submit">submit</string>
+  <string name="breed_activity_welcome">What kind of dog would you like to see </string>
+  <string name="default_dog1_image">dog1_iv_description</string>
+  <string name="dog2_cv_text">Bulldog</string>
+  <string name="dog1_cv_text">Boxer</string>
+  <string name="dog3_cv_text">Dingo</string>
+  <string name="dog4_cv_text">German Shepard</string>
+  <string name="dog1_url">https://dog.ceo/api/img/boxer/n02108089_1.jpg</string>
+  <string name="dog2_url">https://dog.ceo/api/img/bulldog-boston/n02096585_10380.jpg</string>
+  <string name="dog3_url">https://dog.ceo/api/img/dingo/n02115641_10021.jpg</string>
+  <string name="dog4_url">https://dog.ceo/api/img/germanshepherd/n02106662_10122.jpg</string>
 </resources>
